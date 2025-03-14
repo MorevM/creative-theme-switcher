@@ -63,27 +63,6 @@
 	-webkit-tap-highlight-color: transparent;
 	touch-action: none;
 
-	// Overlay to prevent rounded borders 1px bug
-	// &::before {
-	// 	content: '';
-	// 	position: absolute;
-	// 	inset: 0;
-	// 	background-image:
-	// 		radial-gradient(circle at 99% 44%, #ffffff 0, #ffffff 14%, #00000000 14.1%),
-	// 		radial-gradient(circle at 90% 94%, #ffffff 0, #ffffff 14%, #00000000 14.1%),
-	// 		radial-gradient(circle at 16.3% 117%, #ffffff 0, #ffffff 14%, rgb(0 0 0 / 0) 14.1%),
-	// 		radial-gradient(circle at 52.3% 230%, #ffffff 0, #ffffff 55%, rgb(0 0 0 / 0) 55.1%);
-	// 	opacity: calc(1 - var(--ts--final-position));
-	// 	transform:
-	// 		translate(
-	// 			calc(var(--ts--final-position) * 60%),
-	// 			calc(var(--ts--final-position) * 60%),
-	// 		);
-	// 	transition-property: transform, opacity;
-	// 	transition-duration: var(--ts--transition-duration--fast);
-	// 	will-change: transform;
-	// }
-
 	// Shadow inside the element
 	&::after {
 		content: '';
