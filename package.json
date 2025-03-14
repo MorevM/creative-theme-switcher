@@ -1,0 +1,45 @@
+{
+	"name": "@morevm/creative-theme-switcher",
+	"type": "module",
+	"private": true,
+	"version": "1.0.0",
+	"author": {
+		"name": "Maxim Morev",
+		"email": "max.seainside@gmail.com"
+	},
+	"homepage": "https://github.com/MorevM/creative-theme-switcher#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MorevM/creative-theme-switcher"
+	},
+	"scripts": {
+		"prepare": "lefthook install",
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"lint": "yarn lint:eslint && yarn lint:stylelint",
+		"lint:fix": "yarn lint:eslint:fix && yarn lint:stylelint:fix",
+		"lint:eslint": "eslint .",
+		"lint:eslint:fix": "eslint . --fix",
+		"lint:stylelint": "stylelint \"**/*.{css,scss}\" --allow-empty-input",
+		"lint:stylelint:fix": "stylelint \"**/*.{css,scss}\" --fix --allow-empty-input"
+	},
+	"devDependencies": {
+		"@morev/bem-classnames": "^1.1.2",
+		"@morev/commitlint-config": "^0.2.2",
+		"@morev/eslint-config": "^36.3.2",
+		"@morev/stylelint-config": "^7.1.0",
+		"@morev/utils": "^3.12.1",
+		"astro": "^5.4.2",
+		"eslint": "9.21.0",
+		"lefthook": "^1.11.2",
+		"more-sass": "^2.1.2",
+		"postcss": "^8.5.3",
+		"sass": "^1.85.1",
+		"stylelint": "^16.15.0",
+		"typescript": "^5.8.2",
+		"vite-svg-loader": "^5.1.0",
+		"vite-tsconfig-paths": "^5.1.4",
+		"vue": "^3.5.13"
+	}
+}

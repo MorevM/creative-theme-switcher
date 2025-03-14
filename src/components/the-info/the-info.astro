@@ -1,0 +1,125 @@
+---
+import { addAttributesToInlinedSvg, useBem } from '#utils';
+import InfoIcon from '~assets/svg/info.svg?raw';
+import './the-info.scss';
+
+interface Props {
+	lang: 'ru' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const ariaLabel = lang === 'en'
+	? 'Open the information window'
+	: 'Открыть информацию о странице';
+
+const title = lang === 'en'
+	? 'Information about the page'
+	: 'Информация о странице';
+
+const closeAriaLabel = lang === 'en'
+	? 'Close the window'
+	: 'Закрыть окно';
+
+const $b = useBem('the-info');
+---
+
+<div class={$b()}>
+	<button
+		type="button"
+		class={$b('trigger')}
+		aria-label={ariaLabel}
+		aria-controls="the-info-content"
+		data-the-info-trigger
+	>
+		<Fragment set:html={addAttributesToInlinedSvg(InfoIcon, { class: $b('trigger-icon') })} />
+	</button>
+
+	<dialog
+		class={$b('dialog')}
+		id="the-info-content"
+		data-the-info-dialog
+		aria-modal="true"
+		aria-labelledby="the-info-content-title"
+	>
+		<div class={$b('dialog-contents')} data-the-info-contents>
+			<h2 id="the-info-content-title">{title}</h2>
+
+			<form method="dialog">
+				<button class={$b('dialog-close')} aria-label={closeAriaLabel}></button>
+			</form>
+
+			{
+				lang === 'en' && (
+					<p>
+						You're looking at the implementation of a creative theme switcher. <br />
+						If you're interested in how it's done (all video content in Russian):
+					</p>
+
+					<ol>
+						<li>
+							<b>How to draw and animate such an element in Figma?</b> <br />
+							<a href="https://www.youtube.com/watch?v=1gkJsxJgFaI" target="_blank">YouTube</a>
+							/
+							<a href="https://rutube.ru/video/699733ad3570f119cb3c166a9e14d743/" target="_blank">Rutube</a>
+						</li>
+						<li>
+							<b>How to layout such an element?</b> <br />
+							<i>coming soon :)</i>
+						</li>
+						<li>
+							<b>Why and whose job is harder - the designer or the frontender?</b> <br />
+							<i>coming soon :)</i>
+						</li>
+					</ol>
+
+					<hr />
+
+					<p>
+						Subscribe to my <a href="https://github.com/morevm/" target="_blank">Github profile</a>,
+						<a href="https://www.youtube.com/@MorevOnline" target="_blank">YouTube</a> or
+						<a href="https://rutube.ru/channel/741545/">Rutube</a> channels to see more of such cool things :)
+					</p>
+				)
+			}
+
+			{
+				lang === 'ru' && (
+					<p>
+						Вы смотрите на реализацию креативного переключателя темы. <br />
+						Если вам интересно, как это сделано:
+					</p>
+
+					<ol>
+						<li>
+							<b>Как нарисовать и анимировать этот элемент в Figma?</b> <br />
+							<a href="https://www.youtube.com/watch?v=1gkJsxJgFaI" target="_blank">YouTube</a>
+							/
+							<a href="https://rutube.ru/video/699733ad3570f119cb3c166a9e14d743/" target="_blank">Rutube</a>
+						</li>
+						<li>
+							<b>Как сверстать этот элемент?</b> <br />
+							<i>скоро будет :)</i>
+						</li>
+						<li>
+							<b>Чья работа тяжелее и почему - верстальщика или дизайнера?</b> <br />
+							<i>скоро будет :)</i>
+						</li>
+					</ol>
+
+					<hr />
+
+					<p>
+						Подписывайтесь на мой <a href="https://github.com/morevm/" target="_blank">профиль Github</a>,
+						<a href="https://www.youtube.com/@MorevOnline" target="_blank">YouTube</a> или
+						<a href="https://rutube.ru/channel/741545/">Rutube</a>, чтобы видеть больше таких прикольных штук :)
+					</p>
+				)
+			}
+		</div>
+	</dialog>
+
+	<div class={$b('overlay')} data-the-info-overlay></div>
+</div>
+
+<script src="./the-info.ts"></script>

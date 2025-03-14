@@ -1,0 +1,58 @@
+---
+import { addAttributesToInlinedSvg, useBem } from '#utils';
+import CloudsOne from '~assets/svg/clouds-1.svg?raw';
+import CloudsTwo from '~assets/svg/clouds-2.svg?raw';
+import StarsOne from '~assets/svg/stars-1.svg?raw';
+import StarsTwo from '~assets/svg/stars-2.svg?raw';
+import './theme-switcher.scss';
+
+interface Props {
+	lang: 'ru' | 'en';
+}
+
+const $b = useBem('theme-switcher');
+
+const processSvg = (svgContents: string, className: string) =>
+	addAttributesToInlinedSvg(svgContents, {
+		'class': className,
+		'aria-hidden': 'true',
+	});
+
+const ariaLabel = Astro.props.lang === 'en' ? 'Dark theme' : 'Тёмная тема';
+---
+
+<button
+	type="button"
+	class={$b(null, { variant: 'day' })}
+	data-theme-switcher
+	aria-label={ariaLabel}
+	role="switch"
+	aria-checked="false"
+>
+	<!-- Clouds -->
+	<Fragment set:html={processSvg(CloudsOne, $b('clouds', { i: 1 }))} />
+	<Fragment set:html={processSvg(CloudsTwo, $b('clouds', { i: 2 }))} />
+
+	<!-- Stars -->
+	<Fragment set:html={processSvg(StarsOne, $b('stars', { i: 1 }))} />
+	<Fragment set:html={processSvg(StarsTwo, $b('stars', { i: 2 }))} />
+
+	<!-- Dot -->
+	<span class={$b('dot-wrapper')}>
+		<!-- Waves -->
+		<span class={$b('dot-waves')}></span>
+		<!-- Shadow -->
+		<span class={$b('dot-shadow')}></span>
+		<!-- Mask -->
+		<span class={$b('dot')}>
+			<!-- Sun -->
+			<span class={$b('sun')}></span>
+			<!-- Moon -->
+			<span class={$b('moon')}></span>
+		</span>
+	</span>
+</button>
+
+<script>
+	import './theme-switcher.ts';
+</script>

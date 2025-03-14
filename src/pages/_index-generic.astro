@@ -1,0 +1,41 @@
+---
+import TheInfo from '~components/the-info/the-info.astro';
+import TheLanguageSwitcher from '~components/the-language-switcher/the-language-switcher.astro';
+import ThemeSwitcher from '~components/theme-switcher/theme-switcher.astro';
+
+interface Props {
+	lang: 'ru' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const description = lang === 'en'
+	? 'Creative theme switcher'
+	: 'Креативный переключатель темы';
+
+const title = lang === 'en'
+	? 'Creative theme switcher'
+	: 'Креативный перключатель темы';
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Favicons -->
+		<link rel="icon" type="image/svg+xml" href="./favicons/favicon.svg">
+		<link rel="icon" href="/creative-theme-switcher/favicon.ico" sizes="32x32">
+		<link rel="apple-touch-icon" href="/creative-theme-switcher/favicons/apple-touch-icon.png">
+		<!-- Title -->
+		<title>{title}</title>
+		<!-- Common styles -->
+		<link rel="stylesheet" href="/creative-theme-switcher/styles/globals.css" />
+	</head>
+	<body>
+		<TheLanguageSwitcher lang={lang} />
+		<TheInfo lang={lang} />
+		<ThemeSwitcher lang={lang} />
+	</body>
+</html>

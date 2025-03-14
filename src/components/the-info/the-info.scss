@@ -1,0 +1,121 @@
+@use 'more-sass' as *;
+
+.the-info {
+	$b: #{&};
+	$trigger: #{$b}__trigger;
+
+	position: relative;
+	z-index: 10;
+
+	&__trigger {
+		@include reset-button;
+		@include box(40px);
+		@include pos-fix(16px 16px n n, 2);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: var(--app--surface-background-color);
+		border: 1px solid var(--app--border-color);
+		border-radius: 4px;
+		transition-property: border-color, background-color;
+		transition-duration: .3s;
+		cursor: pointer;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	&__trigger-icon {
+		@include box(24px);
+		fill: currentColor;
+	}
+
+	&__overlay {
+		@include hidden-element;
+		@include pos-fix(0);
+		background-color: rgba(0 0 0 / .2);
+		transition-property: opacity, visibility;
+		transition-duration: .4s;
+
+		&.is-active {
+			@include hidden-element-active;
+		}
+	}
+
+	&__dialog {
+		padding: 0;
+		background-color: transparent;
+		border: 0;
+	}
+
+	&__dialog-contents {
+		@include font('1em/1.5');
+		position: relative;
+		box-sizing: border-box;
+		width: 550px;
+		max-width: 90vw;
+		padding: 24px;
+		color: var(--app--text-color);
+		background-color: var(--app--surface-background-color);
+		border: 2px solid var(--app--border-color);
+		overflow: auto;
+		box-shadow: -2px 0 15px rgba(0 0 0 / .1);
+		box-shadow: 0 4px 8px rgba(0 0 0 / .1);
+		transition-property: opacity, visibility, transform;
+		transition-duration: .4s;
+
+		&.is-active {
+			@include hidden-element-active;
+			transform: none;
+		}
+
+		h2 {
+			margin-top: 0;
+			padding-right: 40px;
+			font-size: 1.4em;
+		}
+
+		p, li {
+			margin: 1em 0;
+		}
+
+		ol {
+			padding-inline-start: 2ch;
+		}
+
+		hr {
+			border-color: var(--app--border-color);
+		}
+	}
+
+	&__dialog-close {
+		@include reset-button;
+		@include pos-abs(8px 8px n n);
+		@include box(40px);
+		border: 1px solid var(--app--border-color);
+		border-radius: 4px;
+		cursor: pointer;
+
+		&::before, &::after {
+			@include pseudo;
+			@include pos-abs(calc(50% - 1px) n n 25%);
+			width: 50%;
+			height: 2px;
+			background-color: currentColor;
+		}
+
+		&::before {
+			transform: rotate(-45deg);
+		}
+
+		&::after {
+			transform: rotate(-135deg);
+		}
+
+		&:focus {
+			outline: none;
+		}
+
+		&:focus-visible {
+			outline: 1px auto -webkit-focus-ring-color;
+		}
+	}
+}

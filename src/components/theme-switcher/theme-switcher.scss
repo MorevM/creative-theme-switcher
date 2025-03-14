@@ -1,0 +1,302 @@
+@use 'more-sass' as *;
+
+.theme-switcher {
+	$b: #{&};
+
+	--ts--width: 160px;
+
+	// CAUTION: not intended to be overwritten.
+	--ts--position: 0;
+	--ts--hover-offset: .05;
+	--ts--active-offset: .1;
+	--ts--extra-offset: 0;
+	--ts--final-position: calc(var(--ts--position) + (var(--ts--extra-offset) * var(--ts--extra-offset-multiplier)));
+	--ts--transition-function: cubic-bezier(.28, 1.27, .64, 1) !important;
+	--ts--transition-duration: .6s !important;
+	--ts--transition-duration--fast: .5s !important;
+	--ts--height: calc(var(--ts--width) * .4) !important;
+	--ts--padding: calc(var(--ts--height) / 8) !important;
+	--ts--area: calc(var(--ts--width) - var(--ts--padding) * 2) !important;
+	--ts--dot--size: calc(var(--ts--height) - var(--ts--padding) * 2) !important;
+	--ts--dot--shadow:
+		inset 3px 2px 3px rgb(255 255 255 / .23),
+		inset 1px 1px 2px rgb(255 255 255 / .62),
+		inset -3px -3px 3px rgb(0 0 0 / .13),
+		inset -1px -1px 2px rgb(0 0 0 / .29) !important;
+	--ts--sun--background-color: #f8c022;
+	--ts--moon--background-color: #c3c9d1;
+	--ts--variant-day--background-color: #0673d7;
+	--ts--variant-night--background-color: #1c1e2b;
+
+	// https://gist.github.com/adamcbrewer/5859738
+
+	@include reset-button;
+	position: relative;
+	display: block;
+	width: var(--ts--width);
+	height: var(--ts--height);
+	background-color:
+		color-mix(
+			in sRGB,
+			var(--ts--variant-day--background-color),
+			var(--ts--variant-night--background-color) calc(var(--ts--final-position) * 100%)
+		);
+	border-radius: var(--border-radius--max);
+	overflow: hidden;
+	box-shadow:
+		1px 2px .5px -1px rgba(255 255 255 / calc(.4 * (1 - var(--ts--final-position) + .05 * var(--ts--final-position)))),
+		1px 2px 1px -1px rgba(255 255 255 / calc(.1 * (1 - var(--ts--final-position) + .05 * var(--ts--final-position)))),
+		0 -2px 0 -1px rgba(0 0 0 / .05),
+		-1px -2px 1px -1px rgba(0 0 0 / .15);
+	outline:
+		0 solid color-mix(
+			in sRGB,
+			var(--ts--variant-day--background-color),
+			var(--ts--moon--background-color) calc(var(--ts--final-position) * 100%)
+		);
+	outline-offset: 4px;
+	transition-property: background-color, box-shadow, outline-color;
+	transition-duration: var(--ts--transition-duration);
+	will-change: background-color, box-shadow;
+	cursor: pointer;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	touch-action: none;
+
+	// Overlay to prevent rounded borders 1px bug
+	// &::before {
+	// 	content: '';
+	// 	position: absolute;
+	// 	inset: 0;
+	// 	background-image:
+	// 		radial-gradient(circle at 99% 44%, #ffffff 0, #ffffff 14%, #00000000 14.1%),
+	// 		radial-gradient(circle at 90% 94%, #ffffff 0, #ffffff 14%, #00000000 14.1%),
+	// 		radial-gradient(circle at 16.3% 117%, #ffffff 0, #ffffff 14%, rgb(0 0 0 / 0) 14.1%),
+	// 		radial-gradient(circle at 52.3% 230%, #ffffff 0, #ffffff 55%, rgb(0 0 0 / 0) 55.1%);
+	// 	opacity: calc(1 - var(--ts--final-position));
+	// 	transform:
+	// 		translate(
+	// 			calc(var(--ts--final-position) * 60%),
+	// 			calc(var(--ts--final-position) * 60%),
+	// 		);
+	// 	transition-property: transform, opacity;
+	// 	transition-duration: var(--ts--transition-duration--fast);
+	// 	will-change: transform;
+	// }
+
+	// Shadow inside the element
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		border-radius: var(--border-radius--max);
+		box-shadow:
+			0 -1px 1px rgb(0 0 0 / .4),
+			0 2px 3px color-mix(in sRGB, rgba(0 0 0 / .4), rgb(255 255 255 / .4) calc(var(--ts--final-position) * 100%)),
+			inset 2px 7px 4px -3px rgb(0 0 0 / .5),
+			inset 2px 2px 2px -1px rgb(0 0 0 / .5),
+			inset 0 -2px 4px rgb(0 0 0 / .1),
+			inset 0 -1px 2px rgb(0 0 0 / .15);
+		transition: box-shadow var(--ts--transition-duration);
+		will-change: box-shadow;
+	}
+
+	&:focus-visible {
+		outline-width: 4px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		--ts--transition-duration: 0s !important;
+		--ts--transition-duration--fast: 0s !important;
+	}
+
+	&--variant-day {
+		--ts--extra-offset-multiplier: 1;
+
+		&:hover {
+			--ts--position: var(--ts--hover-offset);
+		}
+
+		&:active {
+			--ts--position: var(--ts--active-offset);
+		}
+	}
+
+	&--variant-night {
+		--ts--position: 1;
+		--ts--extra-offset-multiplier: -1;
+
+		&:hover {
+			--ts--position: calc(1 - var(--ts--hover-offset));
+		}
+
+		&:active {
+			--ts--position: calc(1 - var(--ts--active-offset));
+		}
+	}
+
+	&__dot-wrapper {
+		position: relative;
+		display: block;
+		width: var(--ts--dot--size);
+		aspect-ratio: 1 / 1;
+		padding: var(--ts--padding);
+	}
+
+	&__dot {
+		position: relative;
+		display: block;
+		width: var(--ts--dot--size);
+		aspect-ratio: 1 / 1;
+		clip-path:
+			circle(
+				50% at
+				calc(
+					var(--ts--final-position) *
+					(var(--ts--area) - var(--ts--dot--size)) + var(--ts--dot--size) / 2
+				)
+				50%
+			);
+		transition: clip-path var(--ts--transition-function) var(--ts--transition-duration);
+		will-change: clip-path;
+	}
+
+	&__dot-waves, &__dot-shadow {
+		position: absolute;
+		inset: calc(var(--ts--padding) + 1px);
+		transform:
+			translateX(
+				calc(
+					var(--ts--final-position) * (var(--ts--area) - var(--ts--dot--size))
+				)
+			);
+		transition: transform var(--ts--transition-function) var(--ts--transition-duration);
+		will-change: transform;
+	}
+
+	&__dot-waves {
+		/* stylelint-disable @stylistic/max-line-length -- Better for readability to be under each other */
+		&::before {
+			content: '';
+			position: absolute;
+			inset: -150%;
+			background-image:
+				radial-gradient(closest-side at 50% 50%, rgba(255 255 255 / .05) 0, rgba(255 255 255 / .05) 99%, rgba(255 255 255 / 0) 99.2%),
+				radial-gradient(closest-side at 50% 50%, rgba(255 255 255 / .05) 0, rgba(255 255 255 / .05) 79%, rgba(255 255 255 / 0) 79.2%),
+				radial-gradient(closest-side at 50% 50%, rgba(255 255 255 / .05) 0, rgba(255 255 255 / .05) 59%, rgba(255 255 255 / 0) 59.2%),
+				radial-gradient(closest-side at 50% 50%, rgba(255 255 255 / .05) 0, rgba(255 255 255 / .05) 39%, rgba(255 255 255 / 0) 39.2%);
+			border-radius: 50%;
+		}
+		/* stylelint-enable @stylistic/max-line-length */
+	}
+
+	&__dot-shadow {
+		border-radius: 50%;
+		box-shadow: 2px 2px 6px rgba(0 0 0 / .3);
+	}
+
+	&__sun {
+		position: absolute;
+		inset: 0;
+		display: block;
+		width: var(--ts--dot--size);
+		aspect-ratio: 1 / 1;
+		background-color: var(--ts--sun--background-color);
+		border-radius: 50%;
+		box-shadow: var(--ts--dot--shadow);
+		transform:
+			translateX(
+				calc(
+					var(--ts--final-position) *
+					(var(--ts--area) - var(--ts--dot--size))
+				)
+			);
+		transition: transform var(--ts--transition-function) var(--ts--transition-duration);
+		will-change: transform;
+	}
+
+	&__moon {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		width: var(--ts--dot--size);
+		aspect-ratio: 1 / 1;
+		background-color: var(--ts--moon--background-color);
+		background-image:
+			radial-gradient(circle at 55% 25%, #929eb4 0%, #929eb4 6%, #8c97ae 10%, rgb(125 137 160 / 0) 10.5%),
+			radial-gradient(circle at 70% 65%, #929eb4 0%, #929eb4 6%, #8c97ae 10%, rgb(125 137 160 / 0) 10.5%),
+			radial-gradient(circle at 35% 55%, #929eb4 0%, #929eb4 13%, #8c97ae 17%, rgb(125 137 160 / 0) 17.5%);
+		border-radius: 50%;
+		box-shadow: var(--ts--dot--shadow);
+		transform:
+			translateX(
+				calc(
+					var(--ts--dot--size) * (1 + var(--ts--hover-offset) * 1.1) * (1 - var(--ts--final-position))
+					+ (var(--ts--area) - var(--ts--dot--size)) * var(--ts--final-position)
+				)
+			);
+		transition-property: transform;
+		transition-duration: var(--ts--transition-duration);
+		transition-timing-function: var(--ts--transition-function);
+		will-change: transform;
+	}
+
+	&__clouds {
+		fill: #ffffff;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: var(--ts--width);
+		height: var(--ts--height);
+		transform:
+			translate(
+				calc(var(--ts--final-position) * var(--clouds-offset)),
+				calc(var(--ts--final-position) * var(--clouds-offset)),
+			);
+		transition-property: transform, opacity;
+		transition-duration: var(--ts--transition-duration--fast);
+		will-change: transform;
+
+		#{$b}.is-dragging & {
+			transition-duration: .05s;
+		}
+
+		&--i-1 {
+			--clouds-offset: 60%;
+			opacity: 1;
+		}
+
+		&--i-2 {
+			--clouds-offset: 45%;
+			opacity: .3;
+		}
+	}
+
+	&__stars {
+		fill: #ffffff;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: var(--ts--width);
+		height: var(--ts--height);
+		opacity: var(--ts--final-position);
+		transform:
+			translate(
+				calc(-1 * var(--stars-offset) + (var(--stars-offset) * var(--ts--final-position))),
+				calc(-1 * var(--stars-offset) + (var(--stars-offset) * var(--ts--final-position)))
+			);
+		transition-property: transform, opacity;
+		transition-duration: var(--ts--transition-duration--fast);
+		transition-timing-function: var(--ts--transition-function);
+		will-change: transform;
+
+		&--i-1 {
+			--stars-offset: 35%;
+		}
+
+		&--i-2 {
+			--stars-offset: 45%;
+		}
+	}
+}

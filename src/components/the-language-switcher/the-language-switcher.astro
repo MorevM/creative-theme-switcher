@@ -1,0 +1,40 @@
+---
+import { useBem } from '#utils';
+import './the-language-switcher.scss';
+
+interface Props {
+	lang: 'ru' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const $b = useBem('the-language-switcher');
+
+const ariaLabel = lang === 'en' ? 'Page language' : 'Языковая версия';
+
+const ruAttributes = lang === 'en' ? {} : { 'aria-current': true };
+const enAttributes = lang === 'ru' ? {} : { 'aria-current': true };
+---
+
+<ul class={$b()} aria-label={ariaLabel}>
+	<li>
+		<a
+			class={$b('link')}
+			href="/creative-theme-switcher/"
+			aria-label="English version"
+			lang="en"
+			hreflang="en"
+			{...enAttributes}
+		>EN</a>
+	</li>
+	<li>
+		<a
+			class={$b('link')}
+			href="/creative-theme-switcher/ru/"
+			aria-label="Русская версия"
+			lang="ru"
+			hreflang="ru"
+			{...ruAttributes}
+		>RU</a>
+	</li>
+</ul>
