@@ -8,6 +8,9 @@ export default defineConfig({
 	devToolbar: { enabled: false },
 	site: 'https://morevm.github.io',
 	base: '/creative-theme-switcher/',
+	build: {
+		assets: 'astro',
+	},
 	server: {
 		open: true,
 		port: 3000,
