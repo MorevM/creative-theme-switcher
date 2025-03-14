@@ -1,0 +1,45 @@
+:root {
+	--border-radius--max: 1000px;
+	--app--background-color: #d1d9e7;
+	--app--text-color: #111111;
+	--app--surface-background-color: #ffffff;
+	--app--border-color: #c9c9c9;
+	--link--color: #0000ee;
+	--link--visited--color: #551a8b;
+
+	&:has(.theme-switcher--variant-night) {
+		--app--background-color: #282936;
+		--app--text-color: #f4f4f4;
+		--app--surface-background-color: #12131a;
+		--app--border-color: #464857;
+		--link--color: #8c8cff;
+		--link--visited--color: #bf80f9;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		transition-duration: 0s !important;
+		animation-duration: 0s !important;
+	}
+}
+
+body {
+	display: flex;
+	box-sizing: border-box;
+	justify-content: center;
+	align-items: center;
+	min-height: 100svh;
+	margin: 0;
+	padding: 5%;
+	color: var(--app--text-color);
+	font-family: system-ui, sans-serif;
+	background-color: var(--app--background-color);
+	transition: background .5s, color .3s;
+}
+
+a {
+	color: var(--link--color);
+
+	&:visited {
+		color: var(--link--visited--color);
+	}
+}
