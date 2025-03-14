@@ -1,5 +1,5 @@
 <img
-  src="./.github/assets/banner.jpg"
+  src="./.github/assets/banner.png"
   alt="Promotional image of a creative theme switcher"
   width="846"
   height="476"
