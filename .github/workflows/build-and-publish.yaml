@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  lint-and-test:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
