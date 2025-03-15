@@ -15,8 +15,10 @@
 		--link--color: #8c8cff;
 		--link--visited--color: #bf80f9;
 	}
+}
 
-	@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
 		transition-duration: 0s !important;
 		animation-duration: 0s !important;
 	}

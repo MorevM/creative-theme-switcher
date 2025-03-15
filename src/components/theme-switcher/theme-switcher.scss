@@ -93,12 +93,14 @@
 	&--variant-day {
 		--ts--extra-offset-multiplier: 1;
 
-		&:hover {
-			--ts--position: var(--ts--hover-offset);
-		}
+		@media not (prefers-reduced-motion: reduce) {
+			&:hover {
+				--ts--position: var(--ts--hover-offset);
+			}
 
-		&:active {
-			--ts--position: var(--ts--active-offset);
+			&:active {
+				--ts--position: var(--ts--active-offset);
+			}
 		}
 	}
 
@@ -106,12 +108,14 @@
 		--ts--position: 1;
 		--ts--extra-offset-multiplier: -1;
 
-		&:hover {
-			--ts--position: calc(1 - var(--ts--hover-offset));
-		}
+		@media not (prefers-reduced-motion: reduce) {
+			&:hover {
+				--ts--position: calc(1 - var(--ts--hover-offset));
+			}
 
-		&:active {
-			--ts--position: calc(1 - var(--ts--active-offset));
+			&:active {
+				--ts--position: calc(1 - var(--ts--active-offset));
+			}
 		}
 	}
 

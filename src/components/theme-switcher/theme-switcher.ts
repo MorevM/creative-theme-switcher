@@ -7,6 +7,7 @@ const NIGHT_VARIANT_CLASSNAME = 'theme-switcher--variant-night';
 const MINIMAL_DRAG_OFFSET = 24;
 const MAX_DRAG_DISTANCE = 1280;
 const MAX_EXTRA_OFFSET = .25;
+const NO_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 (() => {
 	const $switchButton = document.querySelector<HTMLButtonElement>('[data-theme-switcher]');
@@ -39,6 +40,7 @@ const MAX_EXTRA_OFFSET = .25;
 
 	const setOffset = (currentPageX: number) => {
 		if (!pressedPageX) return;
+		if (NO_MOTION) return;
 
 		const currentState = getState();
 		if (currentState === 'day' && pressedPageX > currentPageX) return;
