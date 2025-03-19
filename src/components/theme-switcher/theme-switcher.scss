@@ -11,9 +11,11 @@
 	--ts--active-offset: .1;
 	--ts--extra-offset: 0;
 	--ts--final-position: calc(var(--ts--position) + (var(--ts--extra-offset) * var(--ts--extra-offset-multiplier)));
+	// ---
 	--ts--transition-function: cubic-bezier(.28, 1.27, .64, 1);
 	--ts--transition-duration: .6s;
 	--ts--transition-duration--fast: .5s;
+	// ---
 	--ts--height: calc(var(--ts--width) * .4);
 	--ts--padding: calc(var(--ts--height) / 8);
 	--ts--area: calc(var(--ts--width) - var(--ts--padding) * 2);
@@ -23,6 +25,7 @@
 		inset 1px 1px 2px rgb(255 255 255 / .62),
 		inset -3px -3px 3px rgb(0 0 0 / .13),
 		inset -1px -1px 2px rgb(0 0 0 / .29);
+	// ---
 	--ts--sun--background-color: #f8c022;
 	--ts--moon--background-color: #c3c9d1;
 	--ts--variant-day--background-color: #0673d7;
