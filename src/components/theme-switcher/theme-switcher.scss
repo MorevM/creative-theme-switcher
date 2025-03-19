@@ -14,7 +14,7 @@
 	// ---
 	--ts--transition-function: cubic-bezier(.28, 1.27, .64, 1);
 	--ts--transition-duration: .6s;
-	--ts--transition-duration--fast: .5s;
+	--ts--transition-duration--fast: calc(var(--ts--transition-duration) * .8);
 	// ---
 	--ts--height: calc(var(--ts--width) * .4);
 	--ts--padding: calc(var(--ts--height) / 8);
