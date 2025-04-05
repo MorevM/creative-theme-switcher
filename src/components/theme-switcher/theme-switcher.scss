@@ -230,10 +230,10 @@
 	&__clouds {
 		fill: #ffffff;
 		position: absolute;
-		top: 0;
-		left: 0;
-		width: var(--ts--width);
-		height: var(--ts--height);
+		top: -50%;
+		left: -50%;
+		width: calc(var(--ts--width) * 2);
+		height: calc(var(--ts--height) * 2);
 		transform:
 			translate(
 				calc(var(--ts--final-position) * var(--clouds-offset)),
@@ -244,16 +244,16 @@
 		will-change: transform;
 
 		#{$b}.is-dragging & {
-			transition-duration: .05s;
+			transition-duration: .1s;
 		}
 
 		&--i-1 {
-			--clouds-offset: 60%;
+			--clouds-offset: 33%;
 			opacity: 1;
 		}
 
 		&--i-2 {
-			--clouds-offset: 45%;
+			--clouds-offset: 25%;
 			opacity: .3;
 		}
 	}
