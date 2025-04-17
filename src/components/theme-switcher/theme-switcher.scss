@@ -95,7 +95,7 @@
 	&--variant-day {
 		--ts--extra-offset-multiplier: 1;
 
-		@media not (prefers-reduced-motion: reduce) {
+		@media (not (prefers-reduced-motion: reduce)) and (hover: hover) {
 			&:hover {
 				--ts--position: var(--ts--hover-offset);
 			}
@@ -110,7 +110,7 @@
 		--ts--position: 1;
 		--ts--extra-offset-multiplier: -1;
 
-		@media not (prefers-reduced-motion: reduce) {
+		@media (not (prefers-reduced-motion: reduce)) and (hover: hover) {
 			&:hover {
 				--ts--position: calc(1 - var(--ts--hover-offset));
 			}
